@@ -1,0 +1,199 @@
+name: UI/UX Improvement
+description: Request improvements to the user interface or user experience
+title: "[UI/UX] {{improvement_name}}"
+labels: ["enhancement", "ui-ux", "teacher-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## UI/UX Improvement Request
+        
+        Use this form to request improvements to the user interface or user experience of the activities system.
+        Clear descriptions help Copilot understand exactly what interface changes are needed.
+
+  - type: input
+    id: improvement_name
+    attributes:
+      label: Improvement Title
+      description: Give this improvement a short, descriptive name
+      placeholder: e.g., "Improve Activity Card Layout", "Add Dark Mode", "Better Mobile Experience"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: improvement_area
+    attributes:
+      label: Area to Improve
+      description: Which part of the interface needs improvement?
+      options:
+        - Main activities page layout
+        - Activity cards design
+        - Search and filtering interface
+        - Teacher login/dashboard
+        - Registration modal/forms
+        - Navigation and header
+        - Mobile responsiveness
+        - Color scheme and styling
+        - Typography and readability
+        - Loading states and feedback
+        - Error messages and notifications
+        - Overall user experience
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_problem
+    attributes:
+      label: Current Problem
+      description: What is difficult, confusing, or not working well with the current interface?
+      placeholder: e.g., "Activity cards are too crowded and hard to read", "Buttons are too small on mobile", "Colors are hard to distinguish"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: Describe how you'd like the interface to be improved
+      placeholder: e.g., "Make activity cards larger with better spacing", "Add bigger touch targets for mobile", "Use higher contrast colors"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target_devices
+    attributes:
+      label: Primary Devices Used
+      description: What devices do teachers and students primarily use to access the system?
+      options:
+        - Desktop computers
+        - Laptops
+        - Tablets
+        - Mobile phones
+        - Mix of all devices
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user_affected
+    attributes:
+      label: Users Most Affected
+      description: Who would benefit most from this improvement?
+      options:
+        - Teachers
+        - Students
+        - Both teachers and students
+        - Administrators
+        - All users
+    validations:
+      required: true
+
+  - type: textarea
+    id: specific_requirements
+    attributes:
+      label: Specific Requirements
+      description: List specific changes you'd like to see
+      placeholder: |
+        1. Increase font size for better readability
+        2. Add more spacing between activity cards
+        3. Use brighter colors for call-to-action buttons
+        4. Improve contrast for accessibility
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: How Urgent is This?
+      description: How important is this improvement for daily use?
+      options:
+        - High - Makes the system difficult to use
+        - Medium - Would significantly improve usability
+        - Low - Would be nice to have
+    validations:
+      required: true
+
+  - type: textarea
+    id: accessibility_needs
+    attributes:
+      label: Accessibility Considerations
+      description: Are there specific accessibility needs to consider?
+      placeholder: e.g., "Need better contrast for users with vision difficulties", "Larger click targets for motor difficulties"
+    validations:
+      required: false
+
+  - type: textarea
+    id: visual_examples
+    attributes:
+      label: Visual Examples or References
+      description: Describe or reference examples of interfaces you like or think would work well
+      placeholder: e.g., "Similar to how Google Classroom displays cards", "Like the layout on school district website"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "How will we know this improvement is successful? (check all that apply):"
+      options:
+        - label: Interface is easier to use and understand
+          required: true
+        - label: Visual design is more appealing and professional
+          required: true
+        - label: Functionality remains the same or improves
+          required: true
+        - label: Changes work well on target devices
+          required: true
+        - label: Accessibility is maintained or improved
+          required: true
+        - label: Users can complete tasks more efficiently
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot Agent
+        
+        **Files to modify:**
+        - **Primary styling**: `src/static/styles.css` - Main CSS file for visual changes
+        - **HTML structure**: `src/static/index.html` - If layout changes are needed
+        - **JavaScript interactions**: `src/static/app.js` - If interactive behavior changes are needed
+        
+        **CSS best practices:**
+        - Use existing CSS classes and variables when possible
+        - Maintain consistency with current design patterns
+        - Consider responsive design for different screen sizes
+        - Test color contrast for accessibility (minimum 4.5:1 ratio)
+        
+        **Common UI improvement areas:**
+        - **Typography**: font-size, line-height, font-weight, color
+        - **Spacing**: margin, padding, gap between elements
+        - **Colors**: background-color, border-color, text color
+        - **Layout**: flexbox, grid, positioning, responsive breakpoints
+        - **Interactive elements**: hover states, focus states, button styling
+        - **Cards and containers**: box-shadow, border-radius, background
+        
+        **Responsive design considerations:**
+        - Mobile-first approach (min-width media queries)
+        - Touch-friendly button sizes (minimum 44px)
+        - Readable font sizes on small screens (minimum 16px)
+        - Horizontal scrolling prevention
+        
+        **Testing approach:**
+        1. Test changes on different screen sizes
+        2. Verify color contrast meets accessibility standards
+        3. Test with keyboard navigation
+        4. Ensure all functionality still works
+        5. Check cross-browser compatibility
+        6. Validate HTML and CSS
+        
+        **Accessibility guidelines:**
+        - Maintain semantic HTML structure
+        - Ensure sufficient color contrast
+        - Provide focus indicators for keyboard users
+        - Use appropriate heading hierarchy
+        - Include alt text for any new images

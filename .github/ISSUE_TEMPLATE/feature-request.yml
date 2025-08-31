@@ -1,0 +1,187 @@
+name: Feature Request
+description: Request a new feature or functionality for the system
+title: "[FEATURE] {{feature_name}}"
+labels: ["enhancement", "feature-request", "teacher-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        
+        Use this form to request new features or functionality for the Mergington High School activities system.
+        Provide detailed requirements to help Copilot implement exactly what you need.
+
+  - type: input
+    id: feature_name
+    attributes:
+      label: Feature Name
+      description: What would you call this new feature?
+      placeholder: e.g., "Student Waitlist", "Email Notifications", "Activity Calendar View"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: Feature Description
+      description: Describe in detail what this new feature should do
+      placeholder: e.g., "Allow students to join a waitlist when activities are full, and automatically register them when spots become available"
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_problem
+    attributes:
+      label: Problem This Solves
+      description: What problem or need does this feature address?
+      placeholder: e.g., "Currently when activities are full, students have no way to be notified when spots open up"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature_type
+    attributes:
+      label: Type of Feature
+      description: What category does this feature fall into?
+      options:
+        - Student registration enhancement
+        - Teacher management tools
+        - Reporting and analytics
+        - Communication/notifications
+        - User interface improvement
+        - Data export/import
+        - Security enhancement
+        - Integration with other systems
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature?
+      options:
+        - High - Critical for daily operations
+        - Medium - Would significantly improve workflow
+        - Low - Nice to have but not urgent
+    validations:
+      required: true
+
+  - type: textarea
+    id: detailed_requirements
+    attributes:
+      label: Detailed Requirements
+      description: List specific requirements and functionality needed
+      placeholder: |
+        1. When an activity is full, show a "Join Waitlist" button
+        2. Store waitlisted students in order
+        3. When a spot opens, automatically register the first waitlisted student
+        4. Send notification to the student (email or display message)
+        5. Show waitlist count to teachers
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_interface_needs
+    attributes:
+      label: User Interface Requirements
+      description: How should users interact with this feature? Describe the interface needs.
+      placeholder: e.g., "Add a waitlist section to activity cards, show waitlist position to students, add waitlist management to teacher dashboard"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target_users
+    attributes:
+      label: Who Will Use This Feature?
+      description: Which users should have access to this feature?
+      options:
+        - Students only
+        - Teachers only
+        - Both students and teachers
+        - Administrators only
+        - All users
+    validations:
+      required: true
+
+  - type: textarea
+    id: data_requirements
+    attributes:
+      label: Data Storage Requirements
+      description: What new data needs to be stored or tracked?
+      placeholder: e.g., "Store waitlist entries with student email, timestamp, and position"
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration_needs
+    attributes:
+      label: Integration Requirements
+      description: Does this feature need to work with existing functionality in specific ways?
+      placeholder: e.g., "Must integrate with current registration system", "Should respect existing permission system"
+    validations:
+      required: false
+
+  - type: textarea
+    id: success_criteria
+    attributes:
+      label: Success Criteria
+      description: How will you know this feature is working correctly?
+      placeholder: e.g., "Students can join waitlists, teachers can see waitlist counts, automatic registration happens when spots open"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "What must be implemented for this feature to be complete? (check all that apply):"
+      options:
+        - label: New feature works as described in the requirements
+        - label: Feature integrates properly with existing functionality
+        - label: User interface is intuitive and easy to use
+        - label: Data is stored and retrieved correctly
+        - label: Feature respects existing user permissions and security
+        - label: Feature has been tested with various scenarios
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot Agent
+        
+        **Analysis approach:**
+        1. Review existing codebase to understand current architecture
+        2. Identify which files and components need modification
+        3. Plan database schema changes if needed
+        4. Design user interface modifications
+        5. Consider integration points with existing features
+        
+        **Common implementation areas:**
+        - **Database changes**: Modify `src/backend/database.py` for new data structures
+        - **API endpoints**: Add/modify routes in `src/backend/routers/activities.py` or `src/backend/routers/auth.py`
+        - **Frontend interface**: Update `src/static/index.html` and `src/static/app.js`
+        - **Styling**: Modify `src/static/styles.css` for new UI elements
+        
+        **Development approach:**
+        1. Start with backend changes (database, API endpoints)
+        2. Implement frontend interface components
+        3. Add styling and visual polish
+        4. Test integration with existing features
+        5. Validate all user scenarios work correctly
+        
+        **Key considerations:**
+        - Maintain consistency with existing UI patterns
+        - Preserve existing functionality and data
+        - Follow the same authentication patterns used elsewhere
+        - Use the existing database structure and conventions
+        - Test with both teacher and student perspectives
+        
+        **Testing checklist:**
+        - Feature works for intended user types
+        - Integration with existing features is seamless
+        - Data is properly validated and stored
+        - User interface is responsive and accessible
+        - No regression in existing functionality

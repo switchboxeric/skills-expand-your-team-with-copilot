@@ -1,0 +1,161 @@
+name: Modify Activity Details
+description: Request to modify an existing activity's schedule, description, or other details
+title: "[MODIFY ACTIVITY] Update {{activity_name}}"
+labels: ["enhancement", "activity-update", "teacher-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Modify Activity Request
+        
+        Use this form to request changes to an existing extracurricular activity.
+        This provides Copilot with clear instructions on what needs to be updated.
+
+  - type: dropdown
+    id: activity_name
+    attributes:
+      label: Which Activity to Modify
+      description: Select the activity you want to modify
+      options:
+        - Chess Club
+        - Programming Class
+        - Math Competition Team
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Art Studio Sessions
+        - Manga Maniacs
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: input
+    id: other_activity_name
+    attributes:
+      label: Other Activity Name
+      description: If you selected "Other" above, specify the activity name
+      placeholder: e.g., "Drama Club"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: what_to_modify
+    attributes:
+      label: What needs to be modified?
+      description: "Check all that apply:"
+      options:
+        - label: Activity description
+        - label: Meeting schedule (days/times)
+        - label: Maximum participants limit
+        - label: Activity category/type
+        - label: Other details (explain below)
+
+  - type: textarea
+    id: new_description
+    attributes:
+      label: New Description (if changing description)
+      description: Provide the updated description for the activity
+      placeholder: e.g., "Updated description focusing on new curriculum or activities"
+    validations:
+      required: false
+
+  - type: input
+    id: new_schedule_days
+    attributes:
+      label: New Meeting Days (if changing schedule)
+      description: Which days should the activity meet?
+      placeholder: e.g., "Monday, Wednesday" or "Tuesday" or "Saturday"
+    validations:
+      required: false
+
+  - type: input
+    id: new_schedule_time
+    attributes:
+      label: New Meeting Time (if changing schedule)
+      description: What time should the activity meet? (Use format like "3:30 PM - 5:00 PM")
+      placeholder: e.g., "3:30 PM - 5:00 PM" or "7:00 AM - 8:00 AM"
+    validations:
+      required: false
+
+  - type: input
+    id: new_max_participants
+    attributes:
+      label: New Maximum Participants (if changing limit)
+      description: What should the new maximum number of participants be?
+      placeholder: e.g., "15" or "20"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: new_activity_category
+    attributes:
+      label: New Activity Category (if changing category)
+      description: What type of activity should this be categorized as?
+      options:
+        - No change
+        - Sports
+        - Arts
+        - Academic
+        - Community
+        - Technology
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason_for_change
+    attributes:
+      label: Reason for Change
+      description: Why is this change needed? This helps understand the context.
+      placeholder: e.g., "Room availability changed", "Student demand increased", "Curriculum updated"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_changes
+    attributes:
+      label: Additional Changes or Notes
+      description: Any other changes or special considerations?
+      placeholder: e.g., "Need to notify currently registered students", "Equipment requirements changed"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "Confirm what should be implemented (check all that apply):"
+      options:
+        - label: Update the activity details in the database
+          required: true
+        - label: Changes should be reflected immediately on the website
+          required: true
+        - label: Existing student registrations should be preserved
+          required: true
+        - label: Activity should still be filterable correctly with new details
+          required: true
+        - label: If participant limit is reduced, handle overflow appropriately
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot Agent
+        
+        **Files to modify:**
+        - `src/backend/database.py` - Update the activity details in the `initial_activities` dictionary
+        
+        **Important considerations:**
+        - Preserve existing participant registrations unless specifically requested otherwise
+        - If reducing participant limit below current registrations, consider how to handle this
+        - Update all relevant fields: description, schedule, schedule_details, max_participants
+        - Ensure schedule_details uses 24-hour format for times (e.g., "15:30" for 3:30 PM)
+        
+        **Database field mapping:**
+        - `schedule`: Human-readable format (e.g., "Mondays and Fridays, 3:15 PM - 4:45 PM")
+        - `schedule_details.days`: Array of day names (e.g., ["Monday", "Friday"])
+        - `schedule_details.start_time`: 24-hour format (e.g., "15:15")
+        - `schedule_details.end_time`: 24-hour format (e.g., "16:45")
+        
+        **Testing:** Verify changes appear correctly in the web interface and filtering still works.

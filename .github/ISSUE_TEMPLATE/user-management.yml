@@ -1,0 +1,151 @@
+name: User Management Request
+description: Request to add new teachers or modify user accounts
+title: "[USER MANAGEMENT] {{request_type}}"
+labels: ["enhancement", "user-management", "teacher-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## User Management Request
+        
+        Use this form to request changes to user accounts (teachers, administrators).
+        This helps Copilot understand exactly what user management changes are needed.
+
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: Type of Request
+      description: What type of user management change do you need?
+      options:
+        - Add new teacher account
+        - Update existing teacher information
+        - Change user role/permissions
+        - Reset password
+        - Deactivate user account
+        - Other (explain below)
+    validations:
+      required: true
+
+  - type: input
+    id: username
+    attributes:
+      label: Username
+      description: Username for the account (existing username for updates, new username for new accounts)
+      placeholder: e.g., "jsmith" or "mary.chen"
+    validations:
+      required: true
+
+  - type: input
+    id: display_name
+    attributes:
+      label: Display Name
+      description: Full name as it should appear in the system
+      placeholder: e.g., "Ms. Smith" or "Mr. Chen"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user_role
+    attributes:
+      label: User Role
+      description: What role should this user have?
+      options:
+        - teacher
+        - admin
+        - No change (for updates)
+    validations:
+      required: true
+
+  - type: input
+    id: default_password
+    attributes:
+      label: Default Password (for new accounts)
+      description: What should the default password be? (User should change on first login)
+      placeholder: e.g., "welcome123" or "temp2024"
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason_for_request
+    attributes:
+      label: Reason for Request
+      description: Why is this user management change needed?
+      placeholder: e.g., "New teacher hired", "Teacher role changed", "Account locked", "User left school"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_details
+    attributes:
+      label: Additional Details
+      description: Any other information or special requirements?
+      placeholder: e.g., "Should have access to specific activities", "Temporary account", "Department information"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: user_permissions
+    attributes:
+      label: Required Permissions (for new accounts)
+      description: "What should this user be able to do? (check all that apply):"
+      options:
+        - label: View all activities
+        - label: Register students for activities
+        - label: Unregister students from activities
+        - label: Access teacher login area
+        - label: Administrative functions (if admin role)
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "Confirm what should be implemented (check all that apply):"
+      options:
+        - label: User account created/updated in the database
+          required: true
+        - label: User can successfully log into the system
+          required: true
+        - label: User has appropriate permissions for their role
+          required: true
+        - label: Password is properly hashed for security
+          required: true
+        - label: Changes are reflected immediately in the system
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot Agent
+        
+        **Files to modify:**
+        - `src/backend/database.py` - Update the `initial_teachers` array
+        
+        **Database format for new teacher:**
+        ```python
+        {
+            "username": "username_here",
+            "display_name": "Display Name Here",
+            "password": hash_password("password_here"),
+            "role": "teacher"  # or "admin"
+        }
+        ```
+        
+        **Important security considerations:**
+        - Always use the `hash_password()` function to hash passwords
+        - Never store plain text passwords
+        - The `_id` field in the database should be set to the username
+        
+        **User roles:**
+        - `teacher`: Can view activities and manage student registrations
+        - `admin`: Has additional administrative privileges
+        
+        **For password resets:**
+        - Update the existing user's password field with a new hashed password
+        - Consider adding a note that the user should change the password on first login
+        
+        **Testing:**
+        - Verify the user can log in with the correct credentials
+        - Test that the user has appropriate permissions
+        - Ensure password hashing is working correctly

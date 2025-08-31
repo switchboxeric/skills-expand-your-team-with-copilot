@@ -1,0 +1,174 @@
+name: Bug Report
+description: Report a problem or issue with the system
+title: "[BUG] {{bug_summary}}"
+labels: ["bug", "teacher-report"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+        
+        Use this form to report problems or issues with the Mergington High School activities system.
+        Providing detailed information helps Copilot identify and fix the issue quickly.
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Problem Description
+      description: Clearly describe what is not working correctly
+      placeholder: e.g., "Students cannot register for Chess Club", "Login button doesn't work", "Activity list doesn't show all activities"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: List the exact steps to reproduce the problem
+      placeholder: |
+        1. Go to the activities page
+        2. Click on 'Chess Club'
+        3. Try to register a student
+        4. Error appears
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: e.g., "Student should be successfully registered for the activity"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens? Include any error messages.
+      placeholder: 'e.g., Error message appears "Failed to register student" and student is not added to the list'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area_affected
+    attributes:
+      label: Area of System Affected
+      description: Which part of the system has the problem?
+      options:
+        - Student registration
+        - Teacher login
+        - Activity display/listing
+        - Search and filtering
+        - User management
+        - General website functionality
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How Severe is this Problem?
+      description: How much does this impact daily operations?
+      options:
+        - Critical - System completely unusable
+        - High - Major functionality broken
+        - Medium - Some features not working
+        - Low - Minor issue or cosmetic problem
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How Often Does This Happen?
+      description: How frequently do you encounter this problem?
+      options:
+        - Always - Every time I try
+        - Often - Most of the time
+        - Sometimes - Happens occasionally
+        - Rarely - Only happened once or twice
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser_used
+    attributes:
+      label: Web Browser Used
+      description: Which browser are you using when this happens?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+        - Not sure
+    validations:
+      required: false
+
+  - type: input
+    id: username_affected
+    attributes:
+      label: Username (if login-related)
+      description: If this is a login issue, what username is affected?
+      placeholder: e.g., "mrodriguez"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Information
+      description: Any other details that might help understand the problem?
+      placeholder: e.g., "This started happening yesterday", "Only affects certain activities", "Problem occurs during busy periods"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Resolution Criteria
+      description: "How will we know this bug is fixed? (check all that apply):"
+      options:
+        - label: The problem no longer occurs when following the reproduction steps
+          required: true
+        - label: Normal functionality is restored
+          required: true
+        - label: No error messages appear
+          required: true
+        - label: System works as expected for all affected users
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Debugging Hints for Copilot Agent
+        
+        **Investigation approach:**
+        1. Review the steps to reproduce and try to replicate the issue
+        2. Check relevant log files and error messages
+        3. Examine the code areas related to the affected functionality
+        
+        **Common problem areas:**
+        - **Registration issues**: Check `src/backend/routers/activities.py` signup/unregister endpoints
+        - **Login problems**: Check `src/backend/routers/auth.py` and authentication logic
+        - **Display issues**: Check `src/static/app.js` and `src/static/index.html`
+        - **Database issues**: Check `src/backend/database.py` and data initialization
+        - **Filtering problems**: Check JavaScript filtering logic in `app.js`
+        
+        **Files likely to investigate:**
+        - Backend API: `src/backend/routers/activities.py`, `src/backend/routers/auth.py`
+        - Database: `src/backend/database.py`
+        - Frontend: `src/static/app.js`, `src/static/index.html`
+        - Styling: `src/static/styles.css`
+        
+        **Testing the fix:**
+        1. Reproduce the original problem to confirm it exists
+        2. Apply the fix
+        3. Test the exact reproduction steps to ensure the problem is resolved
+        4. Test related functionality to ensure no regression
+        5. Test with different user accounts/browsers if applicable
