@@ -49,7 +49,7 @@ body:
     attributes:
       label: Actual Behavior
       description: What actually happens? Include any error messages.
-      placeholder: e.g., "Error message appears: 'Failed to register student' and student is not added to the list"
+      placeholder: 'e.g., Error message appears "Failed to register student" and student is not added to the list'
     validations:
       required: true
 
