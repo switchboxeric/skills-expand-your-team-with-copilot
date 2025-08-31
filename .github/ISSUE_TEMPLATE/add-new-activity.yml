@@ -1,0 +1,137 @@
+name: Add New Activity
+description: Request to add a new extracurricular activity to the system
+title: "[NEW ACTIVITY] Add {{activity_name}}"
+labels: ["enhancement", "new-activity", "teacher-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add New Activity Request
+        
+        Use this form to request adding a new extracurricular activity to the Mergington High School system.
+        This will help Copilot understand exactly what needs to be implemented.
+
+  - type: input
+    id: activity_name
+    attributes:
+      label: Activity Name
+      description: What is the name of the new activity?
+      placeholder: e.g., "Drama Club", "Science Olympiad", "Cooking Club"
+    validations:
+      required: true
+
+  - type: textarea
+    id: activity_description
+    attributes:
+      label: Activity Description
+      description: Provide a detailed description of what this activity involves
+      placeholder: e.g., "Students will learn acting, directing, and stage production. They will perform in school plays and develop public speaking skills."
+    validations:
+      required: true
+
+  - type: input
+    id: schedule_days
+    attributes:
+      label: Meeting Days
+      description: Which days of the week will this activity meet?
+      placeholder: e.g., "Monday, Wednesday" or "Tuesday" or "Saturday"
+    validations:
+      required: true
+
+  - type: input
+    id: schedule_time
+    attributes:
+      label: Meeting Time
+      description: What time will the activity meet? (Use format like "3:30 PM - 5:00 PM")
+      placeholder: e.g., "3:30 PM - 5:00 PM" or "7:00 AM - 8:00 AM"
+    validations:
+      required: true
+
+  - type: input
+    id: max_participants
+    attributes:
+      label: Maximum Participants
+      description: What is the maximum number of students that can participate?
+      placeholder: e.g., "15" or "20"
+    validations:
+      required: true
+
+  - type: input
+    id: supervising_teacher
+    attributes:
+      label: Supervising Teacher
+      description: Which teacher will supervise this activity?
+      placeholder: e.g., "Ms. Smith" or "Mr. Johnson"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: activity_category
+    attributes:
+      label: Activity Category
+      description: What type of activity is this?
+      options:
+        - Sports
+        - Arts
+        - Academic
+        - Community
+        - Technology
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: special_requirements
+    attributes:
+      label: Special Requirements or Notes
+      description: Are there any special requirements, equipment needs, or other important details?
+      placeholder: e.g., "Requires access to gymnasium", "Need art supplies budget", "Parent permission forms required"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "Confirm what should be implemented (check all that apply):"
+      options:
+        - label: Add the new activity to the activities database with all provided details
+          required: true
+        - label: Activity should appear in the main activities list on the website
+          required: true
+        - label: Activity should be filterable by day, time, and category
+          required: true
+        - label: Teachers should be able to register/unregister students for this activity
+          required: true
+        - label: Activity should respect the maximum participant limit
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Hints for Copilot Agent
+        
+        **Files to modify:**
+        - `src/backend/database.py` - Add the new activity to the `initial_activities` dictionary
+        - Consider the existing format used for other activities in the database
+        
+        **Database format example:**
+        ```python
+        "Activity Name": {
+            "description": "Activity description here",
+            "schedule": "Days, Start Time - End Time",
+            "schedule_details": {
+                "days": ["Day1", "Day2"],
+                "start_time": "HH:MM",
+                "end_time": "HH:MM"
+            },
+            "max_participants": 15,
+            "participants": []
+        }
+        ```
+        
+        **Time format:** Use 24-hour format for start_time and end_time (e.g., "15:30" for 3:30 PM)
+        
+        **Testing:** After implementation, verify the activity appears in the web interface and can be filtered correctly.
